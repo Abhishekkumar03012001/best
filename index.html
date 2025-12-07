@@ -14,17 +14,15 @@
     <section id="upload-section">
       <h3>Step 1️⃣ — Upload up to 5 files</h3>
 
-      <!-- Added form and prevented its default submission -->
-      <form id="uploadForm" onsubmit="return false;">
-        <input 
-          type="file" 
-          id="fileInput" 
-          multiple 
-          accept=".txt,.pdf,.docx" 
-        />
-        <button type="button" id="uploadBtn" onclick="uploadFiles()">Upload</button>
-        <p id="uploadStatus"></p>
-      </form>
+      <!-- No form element at all -->
+      <input 
+        type="file" 
+        id="fileInput" 
+        multiple 
+        accept=".txt,.pdf,.docx" 
+      />
+      <button id="uploadBtn">Upload</button>
+      <p id="uploadStatus"></p>
     </section>
 
     <!-- Step 2: Language Selection -->
@@ -49,7 +47,7 @@
     <section id="chat-section" style="display:none;">
       <h3>Step 3️⃣ — Ask Your Question</h3>
       <textarea id="question" placeholder="Type your question..." rows="3"></textarea>
-      <button type="button" id="askBtn" onclick="askQuestion()">Ask</button>
+      <button id="askBtn">Ask</button>
       <div id="response"></div>
     </section>
   </div>
