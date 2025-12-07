@@ -1,3 +1,6 @@
+// Prevent any accidental page refresh on submit
+document.addEventListener("submit", e => e.preventDefault());
+
 const LANG_MAP = {
   en: "en",
   hi: "hi",
@@ -108,7 +111,6 @@ async function askQuestion() {
       `;
     }
 
-    // auto-scroll down when answer appears
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 
   } catch (err) {
