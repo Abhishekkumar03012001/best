@@ -1,5 +1,9 @@
-// Prevent any accidental page refresh on submit
+// ✅ Block all default submit and reload behaviors
+window.addEventListener("beforeunload", e => e.preventDefault());
 document.addEventListener("submit", e => e.preventDefault());
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.tagName === "INPUT") e.preventDefault();
+});
 
 const LANG_MAP = {
   en: "en",
@@ -16,7 +20,10 @@ function normalizeLang(val) {
   return LANG_MAP[k] || "";
 }
 
-async function uploadFiles() {
+document.getElementById("uploadBtn").addEventListener("click", async (e) => {
+  e.preventDefault(); // 🔥 absolute prevention
+  e.stopPropagation();
+
   const files = document.getElementById("fileInput").files;
   const status = document.getElementById("uploadStatus");
 
@@ -41,8 +48,8 @@ async function uploadFiles() {
       method: "POST",
       body: formData,
     });
-    const data = await res.json();
 
+    const data = await res.json();
     if (res.ok) {
       status.innerText = "✅ Uploaded Successfully!";
       document.getElementById("lang-section").style.display = "block";
@@ -54,9 +61,12 @@ async function uploadFiles() {
   } catch (err) {
     status.innerText = "❌ Upload Error: " + err.message;
   }
-}
+});
 
-async function askQuestion() {
+document.getElementById("askBtn").addEventListener("click", async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+
   const question = document.getElementById("question").value.trim();
   const rawQLang = document.getElementById("questionLang").value;
   const rawALang = document.getElementById("answerLang").value;
@@ -112,7 +122,6 @@ async function askQuestion() {
     }
 
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-
   } catch (err) {
     responseDiv.innerHTML = `
       <div style="padding:12px;background:#1e293b;border-radius:8px;color:#f87171;">
@@ -120,4 +129,4 @@ async function askQuestion() {
       </div>
     `;
   }
-}
+});
